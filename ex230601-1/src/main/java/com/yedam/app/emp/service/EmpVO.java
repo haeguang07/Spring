@@ -1,10 +1,27 @@
 package com.yedam.app.emp.service;
 
+import java.sql.Date;
+
 import lombok.Data;
 
 @Data
 public class EmpVO {
-	String employee_id;
-	String first_name;
-	String last_name;
+	int employeeId;
+	String firstName;
+	String lastName;
+	String email;
+	String jobId;
+	String departmentId;
+	String orderColumn;
+	String phoneNumber;
+	Date hireDate;
+	int salary;
+	double commissionPct ;
+	int managerId;
+	
+	
+	String[] getDeptArr() {
+		
+		return departmentId.split(",");
+	}
 }
