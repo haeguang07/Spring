@@ -31,7 +31,7 @@
 			select DEPARTMENTS_SEQ.currval from dual
 		</selectKey>
 		insert into  departments (department_id,department_name,manager_id ,location_id)
-		values (DEPARTMENTS_SEQ.NEXTVAL, #{departmentName},#{locationId},#{departmentId} )
+		values (DEPARTMENTS_SEQ.NEXTVAL, #{departmentName},#{managerId},#{locationId} )
 	
 	</insert>
 	<delete id="deleteDept">

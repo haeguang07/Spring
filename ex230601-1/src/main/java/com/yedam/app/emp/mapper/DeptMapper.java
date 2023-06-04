@@ -11,5 +11,5 @@ public interface DeptMapper {
 	public int updateDept(DeptVO vo);
 	public int insertDept(DeptVO vo);
 	public int deleteDept(int departmentId);
-	public Map<String,String> selectLocation();
+	public List<Map<String,String>> selectLocation();
 }

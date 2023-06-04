@@ -8,11 +8,11 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>사원등록</h1>
+	<h1>부서수정</h1>
 	<form action="deptUpdate" method="POST">
 		<table>
 			<tr>
-				<td>ID<input readonly="readonly" value="${dept.departmentId}"></td>
+				<td>ID<input readonly="readonly" name="departmentId" value="${dept.departmentId}"></td>
 			</tr>
 			<tr>
 				<td>이름<input name="departmentName" value="${dept.departmentName}">
@@ -22,7 +22,7 @@
 				<td>매지저
 				<select name="managerId">
 						<c:forEach items="${empList}" var="emp">
-							<option value="${emp.employeeId}" <c:if text="${emp.employeeId==dept.managerId}">selected</c:if> >${emp.lastName}</option>
+							<option value="${emp.employeeId}" <c:if test="${emp.employeeId==dept.managerId}">selected</c:if> >${emp.lastName}</option>
 						</c:forEach>
 				</select>
 				</td>
@@ -31,13 +31,13 @@
 			<tr>
 				<td>위치<select name="locationId">
 						<c:forEach items="${loList }" var="lo">
-							<option value="${lo.id }" <c:if text="${lo.id==dept.locationId}">selected</c:if>>${lo.city }</option>
+							<option value="${lo.id }" <c:if test="${lo.id==dept.locationId}">selected</c:if>>${lo.city }</option>
 						</c:forEach>
 				</select>
 				</td>
 			</tr>
 		</table>
-		<button>등록</button>
+		<button>수정</button>
 	</form>
 </body>
 </html>

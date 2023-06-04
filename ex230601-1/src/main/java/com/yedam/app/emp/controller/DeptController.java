@@ -40,7 +40,7 @@ public class DeptController {
 
 	@GetMapping("deptdelete")
 	public String deptdelete(Model model,int deptId) {
-		model.addAttribute("list", mapper.selectDept());
+		mapper.deleteDept(deptId);
 		return "redirect:deptList";
 	}
 
