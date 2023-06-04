@@ -8,8 +8,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<h1>사원등록</h1>
-	<form action="empInsert" method="POST">
+	<h1>부서등록</h1>
+	<form action="deptinsert" method="POST">
 		<table>
 
 			<tr>
@@ -17,10 +17,10 @@
 				</td>
 			</tr>
 			<tr>
-				<td>매지저
+				<td>매니저
 				<select name="managerId">
 						<c:forEach items="${empList}" var="emp">
-							<option value="${emp.employeeid}">${emp.lastName}</option>
+							<option value="${emp.employeeId}">${emp.lastName}</option>
 						</c:forEach>
 				</select>
 				</td>

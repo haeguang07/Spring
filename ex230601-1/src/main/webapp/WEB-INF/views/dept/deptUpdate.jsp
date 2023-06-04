@@ -9,7 +9,7 @@
 </head>
 <body>
 	<h1>사원등록</h1>
-	<form action="empInsert" method="POST">
+	<form action="deptUpdate" method="POST">
 		<table>
 			<tr>
 				<td>ID<input readonly="readonly" value="${dept.departmentId}"></td>
@@ -22,7 +22,7 @@
 				<td>매지저
 				<select name="managerId">
 						<c:forEach items="${empList}" var="emp">
-							<option value="${emp.employeeid}" <c:if text="${emp.employeeid==dept.managerId}">selected</c:if> >${emp.lastName}</option>
+							<option value="${emp.employeeId}" <c:if text="${emp.employeeId==dept.managerId}">selected</c:if> >${emp.lastName}</option>
 						</c:forEach>
 				</select>
 				</td>

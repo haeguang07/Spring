@@ -25,8 +25,8 @@
 				<td>${item.departmentName }</td>
 				<td>${item.managerId}</td>
 				<td>${item.locationId }</td>
-				<td><a href="deptUpdate?deptNo=${item.departmentId}">수정</a></td>
-				<td><a href="deptdelete?deptNo=${item.departmentId}">삭제</a></td>
+				<td><a href="deptUpdate?deptId=${item.departmentId}">수정</a></td>
+				<td><a href="deptdelete?deptId=${item.departmentId}">삭제</a></td>
 			</tr>
 
 		</c:forEach>
