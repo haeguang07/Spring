@@ -13,4 +13,6 @@ public class DeptInfoVO {
 	private String departmentName;
 	private int managerId;
 	private int locationId;
+	
+	
 }

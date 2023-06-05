@@ -4,7 +4,7 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.app.emp.mapper.DeptMapper">
 
-	<select id="selectDept" resultType="deptVO">
+	<select id="selectDept" resultType="DeptInfoVO">
 		select department_id,
 			   department_name,
 			   manager_id ,
@@ -12,7 +12,7 @@
 		from departments
 		order by 1
 	</select>
-	<select id="selectDeptOne" resultType="deptVO">
+	<select id="selectDeptOne" resultType="DeptInfoVO">
 		select department_id,
 			   department_name,
 			   manager_id ,
@@ -20,13 +20,13 @@
 		from departments
 		where department_id=#{departmentId}
 	</select>
-	<update id="updateDept" parameterType="deptVO">
+	<update id="updateDept" parameterType="DeptInfoVO">
 		update departments set 	department_name= #{departmentName},
 					manager_id= #{managerId},
 					location_id= #{locationId}
 		WHERE department_id= #{departmentId}
 	</update>
-	<insert id="insertDept" parameterType="deptVO">
+	<insert id="insertDept" parameterType="DeptInfoVO">
 		<selectKey keyProperty="departmentId"  resultType="int" order="AFTER">
 			select DEPARTMENTS_SEQ.currval from dual
 		</selectKey>

@@ -18,4 +18,6 @@ public interface DeptService {
 
 	// 삭제
 	public int deleteDeptList(List<DeptInfoVO> deptVO);
+	
+	public List<Map<String,String>> selectLocation();;
 }

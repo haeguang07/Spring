@@ -1,6 +1,7 @@
 package com.yedam.app.dept.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import com.yedam.app.dept.service.DeptInfoVO;
 
@@ -19,5 +20,9 @@ public interface DeptInfoMapper {
 
 	// 삭제
 	public int deleteDeptInfo(int deptId);
-
+	
+	
+	public List<Map<String,String>> selectLocation();;
+	
+	
 }

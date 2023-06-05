@@ -19,10 +19,9 @@
 
 		</tr>
 		<c:forEach var="item" items="${list}">
-
-			<tr>
+			<tr onclick="location.href='deptInfo?departmentId=${item.departmentId}'">
 				<td>${item.departmentId }</td>
-				<td>${item.departmentName }</td>
+				<td>{item.departmentName }</td>
 				<td>${item.managerId}</td>
 				<td>${item.locationId }</td>
 				<td><a href="deptUpdate?deptId=${item.departmentId}">수정</a></td>

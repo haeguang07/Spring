@@ -29,7 +29,6 @@ public class DeptServiceImpl implements DeptService {
 
 	@Override
 	public DeptInfoVO getDeptInfo(DeptInfoVO vo) {
-		
 		return  deptMapper.selectOne(vo);
 	}
 
@@ -45,9 +44,10 @@ public class DeptServiceImpl implements DeptService {
 		Boolean result = false;
 		List<Integer> successList = new ArrayList<>();
 		int count= 0;
-		
 		for(DeptInfoVO deptinfo : deptVO) {
+			System.out.println(deptinfo);
 			int res = deptMapper.updateDeptInfo(deptinfo);
+			
 			if(res>0) {
 				//정상적으로 수정이 되었을 경우
 				count++;
@@ -73,5 +73,10 @@ public class DeptServiceImpl implements DeptService {
 		}
 		return count;
 	}
-
+	
+	@Override
+	public List<Map<String, String>> selectLocation() {
+		// TODO Auto-generated method stub
+		return deptMapper.selectLocation();
+	}
 }

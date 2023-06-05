@@ -3,9 +3,9 @@ package com.yedam.app.emp.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 
+import com.yedam.app.dept.service.DeptInfoVO;
 import com.yedam.app.emp.mapper.DeptMapper;
 import com.yedam.app.emp.mapper.EmpMapper;
-import com.yedam.app.emp.service.DeptVO;
 
 
 public class DeptController {
@@ -42,7 +42,7 @@ public class DeptController {
 	}
 
 	//@PostMapping("deptinsert")
-	public String deptinsert(Model model, DeptVO vo) {
+	public String deptinsert(Model model, DeptInfoVO vo) {
 		if (mapper.insertDept(vo) > 0) {
 			return "redirect:deptList";
 		} else {
@@ -51,7 +51,7 @@ public class DeptController {
 	}
 
 	//@PostMapping("deptUpdate")
-	public String deptUpdate(Model model, DeptVO vo) {
+	public String deptUpdate(Model model, DeptInfoVO vo) {
 		if (mapper.updateDept(vo) > 0) {
 			return "redirect:deptList";
 		} else {
