@@ -64,8 +64,10 @@
 		delete from employees where employee_id =#{empNo}
 	</delete>
 	<update id="empUpdate" parameterType="empVO">
-		update set last_name
-		=#{lastName}
+		update employees set last_name=#{lastName}, 
+							 first_name =#{firstName},
+							 email =#{email},
+							 salary =#{salary}
 		where employee_id =#{employeeId}
 	</update>
 </mapper>

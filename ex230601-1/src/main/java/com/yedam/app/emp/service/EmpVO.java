@@ -1,6 +1,6 @@
 package com.yedam.app.emp.service;
 
-import java.sql.Date;
+import java.util.Date;
 
 import lombok.Data;
 

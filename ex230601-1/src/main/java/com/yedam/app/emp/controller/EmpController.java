@@ -48,6 +48,7 @@ public class EmpController {
 		System.out.println(vo.getEmployeeId());
 		return "redirect:empList";
 	}
+	
 	@GetMapping("empDelete")
 	public String empDelete(@RequestParam int empNo) {
 		int result=mapper.deleteEmp(empNo);
@@ -62,6 +63,7 @@ public class EmpController {
 		model.addAttribute("emp", mapper.selectEmpOne(empNo));
 		return "emp/empUpdate";
 	}
+	
 	@PostMapping("empUpdate")
 	public String empUpdate(EmpVO vo) {
 		mapper.empUpdate(vo);

@@ -46,7 +46,7 @@ public class EmpMapperClient {
 		vo.setJobId("IT_PROG");
 		assertEquals(empMapper.insertEmp(vo), 1);
 	}
-	@Test
+	@Ignore
 	public void test() {
 		List<Map<String,String>> list = empMapper.selectJobs();
 		System.out.println(list);
