@@ -6,35 +6,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.yedam.app.aop.AaaService;
-import com.yedam.app.aop.Cats;
+import com.yedam.app.board.service.BoardService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/**/*-context.xml")
-public class AopTest {
+public class test {
 	
 	@Autowired
-	Cats myCat;
-	@Autowired
-	AaaService aService;
-	
+	BoardService Boardservice;
 	
 	@Test
-	public void aopTest() {
-		Cats cat = new Cats();
-		cat.printInfo();
-		
-		System.out.println();
-		
-		myCat.printInfo();
-		
+	public void test() {
+		Boardservice.getBoardList();
 	}
-	
-	
-	//@Test
-	public void txTest() {
-		aService.insert();
-	}
-	
-	
 }

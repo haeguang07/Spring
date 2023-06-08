@@ -23,7 +23,7 @@ public class EmpMapperClient {
 	@Autowired
 	EmpMapper empMapper;
 	
-	@Ignore
+	@Test
 	public void select() {
 		EmpVO findEmp = empMapper.selectEmpOne(100);
 		assertEquals(findEmp.getFirstName(), "Steven");
