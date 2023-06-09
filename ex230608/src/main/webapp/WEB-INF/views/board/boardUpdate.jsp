@@ -36,7 +36,7 @@
 			<tr>
 				<th>수정일</th>
 				<td><input type="date" name="updatedate" id="updatedate" 
-							value="<fmt:formatDate value="${board.updatedate}" pattern="yyyy-MM-dd" type="date" />">
+							value='<fmt:formatDate value="${board.updatedate}" pattern="yyyy-MM-dd" type="date" />'>
 				</td>
 			</tr>
 		</table>
