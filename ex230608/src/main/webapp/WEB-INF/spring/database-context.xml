@@ -18,6 +18,7 @@
 		<property name="jdbcUrl" value="${url}" />
 		<property name="username" value="${user}" />
 		<property name="password" value="${pwd}" />
+		<property name="maximumPoolSize" value="3"></property>
 	</bean>
 
 	<bean id="dataSource" class="com.zaxxer.hikari.HikariDataSource"
@@ -29,10 +30,8 @@
 	<!-- mybatis SqlSessionFactory -->
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean">
 		<property name="dataSource" ref="dataSource" />
-		<property name="configLocation"
-			value="classpath:config/mybits-config.xml" />
-		<property name="mapperLocations"
-			value="classpath*:mapper/*Mapper.xml" />
+		<property name="configLocation" value="classpath:config/mybits-config.xml" />
+		<property name="mapperLocations" value="classpath*:mapper/*Mapper.xml" />
 	</bean>
 
 	<!-- mapper scan -->

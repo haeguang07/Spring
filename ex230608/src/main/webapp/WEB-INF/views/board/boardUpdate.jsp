@@ -11,8 +11,8 @@
 </head>
 
 <body>
-	<form onsubmit="return false">
-		<table>
+	<form onsubmit="return false" name="updateForm">
+		<table class="table">
 			<tr>
 				<th>번호</th>
 				<td><input type="text" readonly value="${board.bno}" name="bno" id="bno"></td>
@@ -35,8 +35,9 @@
 			</tr>
 			<tr>
 				<th>수정일</th>
-				<td><input type="date" name="updatedate" id="updatedate" value="<fmt:formatDate value="${board.updatedate}"
-						pattern="yyyy-MM-dd" type="date" />"></td>
+				<td><input type="date" name="updatedate" id="updatedate" 
+							value="<fmt:formatDate value="${board.updatedate}" pattern="yyyy-MM-dd" type="date" />">
+				</td>
 			</tr>
 		</table>
 		<button type="submit">수정완료</button>
@@ -44,21 +45,21 @@
 	</form>
 	<script>
 		$('button[type=submit]').on('click', function () {
-			Fdata = {
-				bno: $('#bno').val(),
-				title: $('#title').val(),
-				writer: $('#writer').val(),
-				contents: $('#contents').val(),
-				image: $('#image').val(),
-				updatedate: $('#updatedate').val()
-			}
-			console.log(Fdata)
+			let Fdata = {
+					bno: $('#bno').val(),
+					title: $('#title').val(),
+					writer: $('#writer').val(),
+					contents: $('#contents').val(),
+					image: $('#image').val(),
+					updatedate: $('#updatedate').val()
+				}
 			$.ajax({
 				url: 'boards',
 				method: 'PUT',
 				data: JSON.stringify(Fdata),
 				contentType: 'application/json; charset=utf-8',
 				success: function (data) {
+					console.log(data);
 					if (data.result == 'Success') {
 						alert('성공');
 						location.href='boardList';
@@ -71,6 +72,20 @@
 				}
 			})
 		})
+		/*function updateAjax(e){
+			let boardData = new FormData(document.querySelector("[name=updateForm]"));
+			fetch(updateForm.action,{
+				method:"post",
+				body:boardData
+			})
+			.then(response=> response.json())
+			.then(data =>{
+				let message = `결과 : ${data.result}\n
+									 게시글 번호: ${data['board_no']}`;
+				alert(message);
+			})
+			.catch(err => console.log(err));
+		}*/
 	</script>
 
 </body>

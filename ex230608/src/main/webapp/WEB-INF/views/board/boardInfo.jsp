@@ -15,7 +15,7 @@
 </style>
 </head>
 <body>
-	<table>
+	<table class="table">
 		<tr>
 			<th>번호</th>
 			<td>${board.bno}</td>

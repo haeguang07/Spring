@@ -9,7 +9,7 @@
 <title>게시판목록</title>
 </head>
 <body>
-	<table>
+	<table class="table">
 		<thead>
 			<tr>
 				<th>번호</th>
@@ -25,7 +25,7 @@
 					<td>${board.bno }</td>
 					<td><a href="boardInfo?bno=${board.bno }">${board.title }</a></td>
 					<td>${board.writer }</td>
-					<td><fmt:formatDate value="${board.regdate}" pattern="yyyy-MM-dd" type="date"/></td>
+					<td><fmt:formatDate value="${board.regdate}" pattern="yyyy년 MM월 dd일 HH:mm" type="date"/></td>
 				</tr>
 			</c:forEach>
 

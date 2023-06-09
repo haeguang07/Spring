@@ -9,10 +9,9 @@
 		</a>
 
 		<ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-			<li><a href="#" class="nav-link px-2 link-secondary">home</a></li>
-			<li><a href="boardList" class="nav-link px-2 link-body-emphasis">목록</a></li>
-			<li><a href="boardInsert" class="nav-link px-2 link-body-emphasis">등록</a></li>
-			<li><a href="#" class="nav-link px-2 link-body-emphasis">Products</a></li>
+			<li><a href="${pageContext.request.contextPath}/" class="nav-link px-2 link-secondary">home</a></li>
+			<li><a href="${pageContext.request.contextPath}/boardList" class="nav-link px-2 link-body-emphasis">목록</a></li>
+			<li><a href="${pageContext.request.contextPath}/boardInsert" class="nav-link px-2 link-body-emphasis">등록</a></li>
 		</ul>
 
 		<div class="dropdown text-end">

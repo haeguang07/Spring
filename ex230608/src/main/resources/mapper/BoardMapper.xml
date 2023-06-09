@@ -17,7 +17,7 @@
 	<!-- 전체조회 -->
 	<select id="selectBoardList" resultType="BoardVO">
 		<include refid="selectBoard"></include>
-		ORDER BY bno
+		ORDER BY bno desc
 	</select>
 
 	<!-- 단건조회 1)글번호 2)작가 -->
