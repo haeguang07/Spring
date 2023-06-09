@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>도서별 대여매출 현황</title>
 <style>
 th {
 	border: 1px solid black;
