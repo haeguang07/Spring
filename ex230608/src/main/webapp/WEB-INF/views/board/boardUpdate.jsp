@@ -11,8 +11,7 @@
 </head>
 
 <body>
-
-	<form onsubmit="return false" name="frm">
+	<form onsubmit="return false">
 		<table>
 			<tr>
 				<th>번호</th>
@@ -28,7 +27,7 @@
 			</tr>
 			<tr>
 				<th>내용</th>
-				<td><textarea rows="3" cols="2" style="width: 100px;" name="contents" id="contents">${board.contents}</textarea></td>
+				<td><textarea cols="20" rows="4" name="contents" id="contents">${board.contents}</textarea></td>
 			</tr>
 			<tr>
 				<th>첨부이미지</th>
@@ -41,7 +40,7 @@
 			</tr>
 		</table>
 		<button type="submit">수정완료</button>
-		<button type="button" onclick="location.href='boardInfo?bno=${board.bno }'">취소</button>
+		<button type="button" onclick="location.href='boardInfo?bno=${board.bno}'">취소</button>
 	</form>
 	<script>
 		$('button[type=submit]').on('click', function () {
@@ -49,10 +48,11 @@
 				bno: $('#bno').val(),
 				title: $('#title').val(),
 				writer: $('#writer').val(),
-				contents: $('#contents').text(),
+				contents: $('#contents').val(),
 				image: $('#image').val(),
 				updatedate: $('#updatedate').val()
 			}
+			console.log(Fdata)
 			$.ajax({
 				url: 'boards',
 				method: 'PUT',

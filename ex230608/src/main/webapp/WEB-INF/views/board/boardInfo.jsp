@@ -34,14 +34,14 @@
 		</tr>
 		<tr>
 			<th>파일</th>
-			<td><c:choose>
-					<c:when test="${board.image!=null}">
-						<img src='<c:url value="/resources/img/${board.image}"/>' class="image">
+			<c:choose>
+					<c:when test="${not empty board.image}">
+						<td><img src='<c:url value="/resources/img/${board.image}"/>' class="image"></td>
 					</c:when>
 					<c:otherwise>
-						<img src='<c:url value="/resources/img/no_image.jpg"/>' class="image">
+						<td><img src='<c:url value="/resources/img/no_image.jpg"/>' class="image"></td>
 					</c:otherwise>
-				</c:choose></td>
+				</c:choose>
 		</tr>
 		<tr>
 			<th>작성일</th>
