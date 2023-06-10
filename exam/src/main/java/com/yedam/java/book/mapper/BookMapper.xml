@@ -4,75 +4,72 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.yedam.java.book.mapper.BookMapper">
 	<select id="selectNewBookNo" resultType="int">
-		SELECT NVL(Max(book_no),0)+1
+		SELECT
+		NVL(Max(book_no),0)+1
 		FROM book_tbl_06
 	</select>
 	<select id="selectBookList" resultType="BookVO">
-		SELECT 	book_no,
-				book_name,
-				book_coverimg,
-				book_date,
-				book_price,
-				book_publisher,
-				book_info
+		SELECT book_no,
+		book_name,
+		book_coverimg,
+		book_date,
+		book_price,
+		book_publisher,
+		book_info
 		FROM book_tbl_06
 		ORDER BY book_no
 	</select>
 	<insert id="insertBook" parameterType="BookVO">
 		INSERT INTO book_tbl_06
-							(book_no
-							, book_name
-							<if test="bookCoverimg !=null and !bookCoverimg.equals('')">
-							, book_coverimg
-							</if>
-							<if test="bookDate !=null">
-							, book_date
-							</if>
-							<if test="bookPrice >0 ">
-							, book_price
-							</if>
-							<if test="bookPublisher !=null and !bookPublisher.equals('')">
-							, book_publisher
-							</if>
-							<if test="bookInfo !=null and !bookInfo.equals('')">
-							, book_info
-							</if>)
+		(book_no
+		, book_name
+		<if test="bookCoverimg !=null and !bookCoverimg.equals('')">
+			, book_coverimg
+		</if>
+		<if test="bookDate !=null">
+			, book_date
+		</if>
+		<if test="bookPrice >0 ">
+			, book_price
+		</if>
+		<if test="bookPublisher !=null and !bookPublisher.equals('')">
+			, book_publisher
+		</if>
+		<if test="bookInfo !=null and !bookInfo.equals('')">
+			, book_info
+		</if>
+		)
 		VALUES (
-				#{bookNo}
-				,#{bookName}
-				<if test="bookCoverimg !=null and !bookCoverimg.equals('')">
-				,#{bookCoverimg}
-				</if>
-				<if test="bookDate !=null">
-				,#{bookDate}
-				</if>
-				<if test="bookPrice >0 ">
-				,#{bookPrice}
-				</if>
-				<if test="bookPublisher !=null and !bookPublisher.equals('')">
-				,#{bookPublisher}
-				</if>
-				<if test="bookInfo !=null and !bookInfo.equals('')">
-				,#{bookInfo}
-				</if>
-				)
+		#{bookNo}
+		,#{bookName}
+		<if test="bookCoverimg !=null and !bookCoverimg.equals('')">
+			,#{bookCoverimg}
+		</if>
+		<if test="bookDate !=null">
+			,#{bookDate}
+		</if>
+		<if test="bookPrice >0 ">
+			,#{bookPrice}
+		</if>
+		<if test="bookPublisher !=null and !bookPublisher.equals('')">
+			,#{bookPublisher}
+		</if>
+		<if test="bookInfo !=null and !bookInfo.equals('')">
+			,#{bookInfo}
+		</if>
+		)
 	</insert>
-	
-	
+
+
 	<select id="selectRentList" resultType="RentVO">
-		SELECT a.book_no,c.book_name , rent_total,rent_count
-		FROM (  
-        		select book_no, sum(rent_price) rent_total
-        		from rent_tbl_06
-        		GROUP BY book_no) a JOIN
-     		(  	select book_no, count(book_no) rent_count
-       			from rent_tbl_06
-       			GROUP BY book_no) b
-    		ON (a.book_no= b.book_no) 
-    		JOIN book_tbl_06 c 
-    		ON (b.book_no= c.book_no)
-		ORDER BY a.book_no 
-	
+		select a.book_no,c.book_name , rent_total, rent_count
+		from (
+				select book_no, sum(rent_price) rent_total, count(book_no) rent_count
+				from rent_tbl_06
+				GROUP BY book_no ) a JOIN book_tbl_06 c
+		ON (a.book_no= c.book_no)
+		ORDER BY a.book_no
+
 	</select>
 
 </mapper>
