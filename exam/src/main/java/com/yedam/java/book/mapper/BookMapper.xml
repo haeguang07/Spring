@@ -69,7 +69,6 @@
 				GROUP BY book_no ) a JOIN book_tbl_06 c
 		ON (a.book_no= c.book_no)
 		ORDER BY a.book_no
-
 	</select>
 
 </mapper>
