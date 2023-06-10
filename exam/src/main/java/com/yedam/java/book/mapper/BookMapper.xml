@@ -45,7 +45,7 @@
 		<if test="bookCoverimg !=null and !bookCoverimg.equals('')">
 			,#{bookCoverimg}
 		</if>
-		<if test="bookDate !=null">
+		<if test="bookDate !=null and !bookDate.equals('')">
 			,#{bookDate}
 		</if>
 		<if test="bookPrice >0 ">
