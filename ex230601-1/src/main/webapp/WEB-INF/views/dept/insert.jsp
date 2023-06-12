@@ -31,7 +31,7 @@
 		</div>
 		<div>
 			<button type="submit">등록</button>
-			<button type="button" onclick="loction.href='deptList'">목록</button>
+			<button type="button" onclick="location.href='deptList'">목록</button>
 		</div>
 
 	</form>
