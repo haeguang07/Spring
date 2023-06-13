@@ -11,7 +11,7 @@
 	<!-- DispatcherServlet Context: defines this servlet's request-processing 
 		infrastructure -->
 		<!-- application.properties와 연결 -->
-	<context:property-placeholder location="classpath:config/application.properties" />
+	<context:property-placeholder location="classpath:config/app.properties" />
 	
 	
 	<!-- Enables the Spring MVC @Controller programming model -->

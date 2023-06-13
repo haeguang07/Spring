@@ -35,7 +35,7 @@ button{
 			<table border="1" class="table">
 				<tr>
 					<th>도서번호</th>
-					<td><input type="text" name="bookNo" value="${bookNo}"></td>
+					<td><input type="text" name="bookNo" value="${bookNo}" readonly="readonly"></td>
 				</tr>
 				<tr>
 					<th>도서명</th>
