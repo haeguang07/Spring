@@ -17,10 +17,20 @@
 		<!-- <security:csrf disabled="true" /> -->
 	</security:http>
 	
-	
+	<bean id="userDetailService" class="com.yedam.app.user.service.CustomerUserDetailService" />
+
 	<security:authentication-manager>
-		<security:authentication-provider>
-			<security:jdbc-user-service data-source-ref="userDetailService"/>
+		<security:authentication-provider user-service-ref="userDetailService">
+			<!-- <security:jdbc-user-service data-source-ref="dataSource" 
+				users-by-username-query="SELECT login_id, '{noop}' || password, 1 
+										 FROM t_user
+										 WHERE login_id = ?" 
+				authorities-by-username-query="SELECT login_id, role_name
+											   FROM t_user JOIN t_user_role
+											   ON t_user.id = t_user_role.user_id
+														   JOIN t_role
+											   ON t_user_role.role_id = t_role.id
+											   WHERE login_id = ?" /> -->
 		</security:authentication-provider>
 	</security:authentication-manager>
 

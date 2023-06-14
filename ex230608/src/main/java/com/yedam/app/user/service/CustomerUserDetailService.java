@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import com.yedam.app.user.mapper.UserMapper;
 
 
-public class CustomerUserDetailsService implements UserDetailsService {
+public class CustomerUserDetailService implements UserDetailsService {
 	@Autowired
 	UserMapper userMapper;
 	
