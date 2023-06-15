@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+<style>
+  #container {
+    width: 500px;
+    margin: 0 auto;
+  }
+
+  label {
+    width: 100px;
+  }
+
+  #list {
+    margin-top: 30px;
+  }
+
+  table,
+  th,
+  td {
+    border: 1px solid black;
+  }
+</style>
+
+<body>
+  <div id="container">
+    <div>
+      <form>
+        <div>
+          <label>사원번호</label>
+          <input type="number" name="employee_id" id="employee_id">
+        </div>
+        <div>
+          <label>성</label>
+          <input type="text" name="last_name" id="last_name">
+        </div>
+        <div>
+          <label>이름</label>
+          <input type="text" name="first_name" id="first_name">
+        </div>
+        <div>
+          <label>이메일</label>
+          <input type="text" name="email" id="email">
+        </div>
+        <div>
+          <label>업무</label>
+          <select id="job">
+            <option value="" selected>--</option>
+          </select>
+          <input type="text" name="job_id" id="job_id" readonly>
+        </div>
+        <div>
+          <label>입사일</label>
+          <input type="date" name="hire_date" id="hire_date">
+        </div>
+        <div>
+          <button type="reset">초기화</button>
+          <button type="submit">등록</button>
+          <button type="button">수정</button>
+        </div>
+
+      </form>
+    </div>
+
+    <div id="list">
+      <button type="button" id="checkDelBtn" style="float: right;">선택 삭제</button>
+      <table>
+        <thead>
+          <tr>
+            <th> <input type="checkbox" id="allChk"></th>
+            <th>사원번호</th>
+            <th>이름</th>
+            <th>업무</th>
+            <th>삭제</th>
+          </tr>
+        </thead>
+        <tbody id="empList">
+
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+
+  <script src="ajax_ex01.js"></script>
+  <script>
+    init();
+  </script>
+</body>
+
+</html>

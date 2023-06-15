@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>DOM01.html</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <style>
+    .red{ color: coral;}
+    .blue{ color: skyblue;}
+  </style>
+</head>
+<body>
+  <div>
+    <h1>Cites</h1>
+    <ul>
+      <li id="one" class="red">Seoul</li>
+      <li id="two" class="red" name="영국">Loundons</li>
+      <li id="three" class="blue">NewYork</li>
+      <li id="four">Tokyo</li>
+    </ul>
+  </div>
+  <template>
+    <div>
+      <h3>탬플릿</h3>
+    </div>
+  </template>
+  
+  <script>
+    //document의 메소드 사용 : DOM의 등록된 대상만 검색
+    //특정 속성을 가지고 있을때 가지고 오느데 유용함
+    let selectTag=document.getElementById('two');
+    console.log('getElementById:')
+    console.log(selectTag);
+
+    selectTag=document.getElementsByName('영국')[0];
+    console.log('getElementsByName:')
+    console.log(selectTag);
+
+    selectTag= document.getElementsByTagName('li')[1];
+    console.log('getElementsByTagName:')
+    console.log(selectTag);
+
+
+    //관계를 기반으로 접근시 유용
+    selectTag=document.querySelector('ul>li:nth-child(1)');
+    console.log('querySelector:')
+    console.log(selectTag);
+
+    selectTag=document.querySelectorAll('.red')[1];
+    console.log('querySelectorAll:')
+    console.log(selectTag);
+
+    console.clear();
+    //탐색 관련
+    let uTag = document.querySelector('ul');
+
+    //부모: parentNode 
+    console.log('parentNode',uTag.parentNode);
+
+    //자식: children 자식중에서 element요소만 반환,  firstElementChild- 첫번째 자식, lastElementChild 마지막 자식
+    console.log('children',uTag.children);
+    console.log('firstElementChild',uTag.firstElementChild);
+    console.log('lastElementChild',uTag.lastElementChild);
+    //형제: 앞 -previousElementSibling, 뒤-nextElementSibling
+    console.log('previousElementSibling',uTag.previousElementSibling);
+    console.log('nextElementSibling',uTag.nextElementSibling);
+
+    console.clear();
+    //속성 제어: 객체
+    let liTag = document.getElementById('two');
+    liTag.className="blue";
+    liTag.classList.add('select');
+    liTag.id="second";
+    liTag.textContent="Content Update";
+    liTag.value='';
+    //그외는 setAttribute로 
+    liTag.setAttribute('name','Eng')
+
+    //liTag.innerHTML;//보안이 취약해서 사용권장을 안함(값을 넣을 때)
+                      //읽을 때 (가지고 올 때)는 상관없음(readonly로 쓸 것)
+    
+    //innerHTML vs innerText(textContent)
+    let str= '<h3>새롭게 추가되는 데이터</h3>'
+    //document.querySelector('div').innerHTML=str;
+    //document.querySelector('div').textContent=str;
+
+
+
+  </script>
+</body>
+</html>

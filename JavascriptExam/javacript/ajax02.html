@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ajax</title>
+</head>
+
+<body>
+  <div>
+    <div id="result">
+
+    </div>
+  </div>
+  <script>
+
+    fetch('http://192.168.0.51:8081/myserver/empSelect')
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      //makeT(data);
+    })
+    .catch(reject => console.log(reject))
+    
+    function makeT(data){
+      
+      for(let emp of data ){
+        let p=document.createElement('p');
+        p.textContent=emp['last_name'];
+        document.getElementById('result').append(p);
+      }
+    }
+
+
+    fetch('http://192.168.0.51:8081/myserver/empFind?employee_id=100')
+    .then(response => response.json())
+    .then(data => {
+      let p=document.createElement('p');
+        p.textContent=JSON.stringify(data);
+        let divTag=document.getElementById('result');
+        divTag.textContent='';
+        divTag.append(p);
+    })
+    .catch(reject => console.log(reject))
+
+    let empInfo ={
+      'employee_id': 100,
+      'last_name': 'King'
+      
+    }
+    fetch('http://192.168.0.51:8081/myserver/empUpdate',{
+      method: 'post',
+      headers:{
+        'content-type' : 'application/json'
+      },
+
+      body: JSON.stringify(empInfo)
+    })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(reject => console.log(reject))
+
+
+  </script>
+</body>
+
+</html>

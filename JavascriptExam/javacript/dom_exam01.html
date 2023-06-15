@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+  <title>Document</title>
+  <style>
+    table,
+    th,
+    td {
+      border: 1px solid black;
+    }
+  </style>
+</head>
+
+<body>
+  <div>
+    <h3>회원 정보</h3>
+    <form name="frm">
+      <div>
+        <label>아이디</label>
+        <input type="text" name="id" readonly>
+      </div>
+      <div>
+        <label>성</label>
+        <input type="text" name="firstName">
+        <label>이름 </label>
+        <input type="text" name="lastName">
+        <p></p>
+      </div>
+
+      <div>
+        <label>생년월일</label>
+        <input type="date" name="birthday" max="2023-06-14">
+      </div>
+
+      <div>
+        <label>비고</label>
+        <input type="text" name="comment">
+      </div>
+      <div>
+        <button type="submit">등록</button>
+        <button type="button">수정</button>
+        <button type="reset">취소</button>
+      </div>
+    </form>
+  </div>
+  <div>
+    <table id="list">
+      <thead>
+        <tr>
+          <th>회원번호</th>
+          <th>성</th>
+          <th>이름</th>
+          <th>생년월일</th>
+          <th>비고</th>
+          <th>삭제</th>
+        </tr>
+      </thead>
+      <tbody>
+
+      </tbody>
+    </table>
+  </div>
+  <script>
+    getUserId()
+    //1)사용자가 입력한 내용 중 성과 이름을 합쳐서 이름으로 변경 -> 밑에 출력
+    let nameTag = document.querySelectorAll("input[name*='Name']");
+    nameTag.forEach(el => {
+      el.addEventListener('change', function (e) {
+        let fullName = '';
+        document.querySelectorAll("input[name*='Name']").forEach(
+          input => {
+            fullName += input.value;
+          }
+        )
+        this.parentElement.lastElementChild.textContent = fullName;
+        //e.currentTarget.parentElement.lastElementChild.textContent
+
+        //let fName=document.querySelector("input[name='firstName']").value;
+        //let lName=document.querySelector("input[name='lastName']").value;
+        //this.parentElement.lastElementChild.textContent= fName+' ' + lName;
+      })
+
+    })
+
+    //2) 등록 버튼을 누를 경우 현재 Form이 가지고 있는 input 태그의 정보를 객체로 변환
+    //3)tr event 등록
+    //3-1)tr 클릭시 위에 FROM input에 값을 전달
+    //3-2) button 태그의 click 이벤트 -> 해당 태그를 감싸고 있는 tr태그를 삭제:remove
+    let inputList = document.querySelectorAll('form input');
+
+    document.querySelector('form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      let idList=document.querySelectorAll('tbody tr td:first-child');
+      for(let i=0;i<idList.length;i++){
+        if(idList[i].textContent==inputList[0].value) return;
+
+      }
+
+      getUserId();
+      let userObj = {};
+      inputList.forEach(tag => {
+        userObj[tag.getAttribute('name')] = tag.value;
+      })
+    
+      console.log(userObj);
+
+      makeTr(userObj);
+      getUserId();
+    })
+
+    function makeTr(obj = {}) {
+      let tobody = document.querySelector('#list').children[1];
+      let tr = document.createElement('tr');
+      // tr.addEventListener('click',function(){
+      //   let tdList= tr.querySelectorAll('td');
+      //   for (let i=0; i<inputList.length;i++){
+      //     inputList[i].value= tdList[0].textContent;
+      //   }
+      // })
+
+
+
+      let feilds = ["id", "firstName", "lastName", "birthday", "comment"];
+      for (let f of feilds) {
+        let td = document.createElement('td');
+        td.textContent = obj[f];
+        tr.append(td);
+      }
+
+      // for(let feild in obj){//(for in) 객체의 필드를 순환
+      //   let td=document.createElement('td');
+      //   td.textContent=obj[feild];
+      //   tr.append(td);
+      // }
+
+      let td = document.createElement('td');
+      let button = document.createElement('button');
+      button.textContent = '삭제';
+      
+      button.addEventListener('click',function(e){
+        this.parentElement.parentElement.remove();
+        //e.stopPropagation();//이벤트 버블링을 막는다
+      })
+
+
+      td.append(button);
+      tr.append(td);
+
+      //3-1)tr 클릭시 위에 FROM input에 값을 전달
+
+      tr.addEventListener('click', function(event) {
+        if(event.target.tagName == 'BUTTON') return;
+        inputList.forEach(input => {
+          input.value = obj[input.getAttribute('name')]
+        })
+      })
+
+      tobody.append(tr);
+    }
+
+
+    function getUserId(){
+      let userId= 100;
+      let usersId=document.querySelectorAll('tbody tr td:first-child')
+      if(usersId.length !=0){
+        userId= (usersId[usersId.length-1].textContent)*1 +1;
+      }
+      document.querySelector('input[name=id]').value=userId;
+    }
+
+
+    document.querySelector('form button[type="button"]').addEventListener('click',function(){
+      let idList=document.querySelectorAll('tbody tr td:first-child');
+      idList.forEach(idTag=>{
+        
+        if(idTag.textContent == inputList[0].value){
+          let tdList= idTag.parentElement.children;
+          for(let i=0;i<inputList.length;i++){
+            tdList[i].textContent = inputList[i].value;
+          }
+        }
+      })
+    })
+
+
+    /*document.querySelector('form button[type="button"]').addEventListener('click',function(){
+      //form -> obj
+      let userObj= getFromInfo();
+      //obj.id-> serch
+      let trTag = getUpdateTr(userObj.id);
+      //update
+      let tdList= trTag.getElementsByTagName('td');
+      let index=0;
+      for(let field in userObj){
+          tdList[index].textcontent= userObj[field]; index++;
+      }
+    })
+    function getUpdateTr(userid){
+      let idList=document.querySelectorAll('tbody tr td:first-child');
+      let selectTag='';
+      idList.forEach(tag=>{
+        if(tag.textContent=userid){
+          selectTag= tag.parentNode;
+          return;
+        }
+      })
+      return selectTag;
+    }*/
+  </script>
+</body>
+
+</html>
