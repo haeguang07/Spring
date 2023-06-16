@@ -19,17 +19,41 @@
   <script>
     //id
     let tag = $('#title');
+    tag.text('텍스트 변경')
+    tag.text();
     console.log(tag);
     //tag
     tag = $('h3')
     console.log(tag);
     //class
-    tag = $('.blue')
+    tag = $('.blue').css('background-color','skyblue')
+                    .on('click', function(e){
+                      alert ('클릭 이벤트 발생')
+                    });
     console.log(tag);
-    //선택자
-    tag = $('h4')
+    //선택자 : 한건 여러건
+    tag = $('h3.blue');
     console.log(tag);
 
+    console.clear();
+
+    let Htag =$('div >* ')
+    console.log(tag);
+    Htag.each((idx,item)=>{
+      console.log(idx);
+      console.log(item.textContent);
+    })
+    $.ajax({
+      url:'',
+      type:'',
+      data:'',
+      success: function(result){
+
+      },
+      error: function(err){
+        console.log(err)
+      }
+    })
   </script>
 </body>
 
