@@ -136,31 +136,41 @@ function updateInfo(tr) {
   fetch('http://192.168.0.51:8081/myserver/empFind?employee_id=' + employeeId)
     .then(response => response.json())
     .then(data => {
-      formData(data);
+      printData(data);
     })
     .catch(err => console.log(err))
 
 }
+
 //단건 조회 후 form에 출력;
-function formData(emp) {
+function printData(emp) {
   let inputList = document.querySelectorAll('form input');
+
   inputList.forEach(input => {
-    let name = input.getAttribute('name');
-    if (name != 'hire_date') {
-      input.value = emp[name];
-    } else {
-      let hireDate = new Date(emp[name])
-      let year = hireDate.getFullYear();
-      let month = (hireDate.getMonth() + 1) < 10 ? '0' + (hireDate.getMonth() + 1) : (hireDate.getMonth() + 1);
-      let date = hireDate.getDate() < 10 ? '0' + hireDate.getDate() : hireDate.getDate();
-      input.value = year + '-' + month + '-' + date;
+    let name = input.name;
+    let objVal =  emp[name]
+    if (name == 'hire_date') {
+      objVal =getHireDate(emp[name]);
     }
+    input.value = objVal;
     if (name == 'job_id') {
-      document.querySelector('#job').value = emp[name];
+      document.querySelector('#job').value = objVal;
+      //input.previousElementSibling.value=objVal;
     }
   });
 
 }
+
+function getHireDate(data) {
+  let hireDate = new Date(data)
+  let year = hireDate.getFullYear();
+  //let month = (hireDate.getMonth() + 1) < 10 ? '0' + (hireDate.getMonth() + 1) : (hireDate.getMonth() + 1);
+  let month = ('0' + (hireDate.getMonth() + 1)).slice(-2)
+  //let date = hireDate.getDate() < 10 ? '0' + hireDate.getDate() : hireDate.getDate();
+  let date = ('0' + hireDate.getDate()).slice(-2)
+  return `${year}-${month}-${date}`;
+}
+
 
 
 // 등록
@@ -168,103 +178,108 @@ function insertEmpInfo(e) {
   event.preventDefault();
   let inputList = document.querySelectorAll('form input');
   let obj = {};
-  inputList.forEach(input=>{
-    obj[input.getAttribute('name')]= input.value;
-    if(input.value ==''){
-      alert(input.getAttribute('name')+'이 입력 되지 않았습니다');
+  inputList.forEach(input => {
+    obj[input.getAttribute('name')] = input.value;
+    if (input.value == '') {
+      alert(input.getAttribute('name') + '이 입력 되지 않았습니다');
       return;
     }
   })
-  fetch('http://192.168.0.51:8081/myserver/empInsert',{
-    method: 'post',
-    headers:{
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify(obj)
-  })
-  .then(response => response.json())
-  .then(data=> {
-    if(data.employee_id>0){
-      alert('등록 성공');
-      location.reload();
-    }
-  })
+  fetch('http://192.168.0.51:8081/myserver/empInsert', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.employee_id > 0) {
+        alert('등록 성공');
+        location.reload();
+      }
+    })
 }
 
 // 수정
 function updateEmpInfo(e) {
   let inputList = document.querySelectorAll('form input');
   let obj = {};
-  inputList.forEach(input=>{
-    obj[input.getAttribute('name')]= input.value;
-    if(input.value ==''){
-      alert(input.getAttribute('name')+'이 입력 되지 않았습니다');
+  inputList.forEach(input => {
+    obj[input.getAttribute('name')] = input.value;
+    if (input.value == '') {
+      alert(input.getAttribute('name') + '이 입력 되지 않았습니다');
       return;
     }
   })
-  fetch('http://192.168.0.51:8081/myserver/empUpdate',{
-    method:'post',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify(obj)
-  })
-  .then(response=> response.json())
-  .then(data=> {
-    if(data.employee_id>0){
-      alert('성공');
-      location.reload();
-    }
-  })
+
+  fetch('http://192.168.0.51:8081/myserver/empUpdate', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(obj)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.employee_id > 0) {
+        alert('성공');
+        location.reload();
+      }
+    })
 }
+
+
 //선택된 사원 삭제
 function deleteEmpInfo(e) {
-  let checkInputList= document.querySelectorAll('td>input[type="checkbox"]:checked');
-  let delList=[];
-  if(checkInputList.length>0){
-    checkInputList.forEach(item=>{
-      if(item.id != 'allChk'){
+  let checkInputList = document.querySelectorAll('td>input[type="checkbox"]:checked');
+  let delList = [];
+  if (checkInputList.length > 0) {
+    checkInputList.forEach(item => {
+      if (item.id != 'allChk') {
         let obj = {};
-        obj.employee_id=item.value;
+        obj.employee_id = item.value;
         delList.push(obj)
       }
     })
   }
   console.log(delList);
-  fetch('http://192.168.0.51:8081/myserver/empListDelete',{
-    method:'post',
-    headers: {
-      'content-type': 'application/json'
-    },
-    body: JSON.stringify(delList)
-  })
-  .then(response => response.json())
-  .then(data=>{
-    if(data.success>0){
-      alert('삭제건수:'+ data.total +
-            '\n성공건수'+ data.success);
-      location.reload();
-    }
-  })
-  .catch(err=> console.log(err))
+  fetch('http://192.168.0.51:8081/myserver/empListDelete', {
+      method: 'post',
+      headers: {
+        'content-type': 'application/json'
+      },
+      body: JSON.stringify(delList)
+    })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success > 0) {
+        alert('삭제건수:' + data.total +
+          '\n성공건수' + data.success);
+        location.reload();
+      }
+    })
+    .catch(err => console.log(err))
 }
+
 //selected => input 출력
 function printSelectJob(e) {
   let selectTag = event.currentTarget;
   let selectedVal = selectTag.options[selectTag.selectedIndex].value;
   selectTag.nextElementSibling.value = selectedVal;
 }
+
 //전체 선택
 function isAllChecked(e) {
-  let checkInputList= document.querySelectorAll('td>input[type="checkbox"]');
-  if (event.currentTarget.checked){
-    checkInputList.forEach(item=>{
-      item.checked=true;
+  let checkInputList = document.querySelectorAll('td>input[type="checkbox"]');
+  if (event.currentTarget.checked) {
+    checkInputList.forEach(item => {
+      item.checked = true;
     })
-  }else{
-    checkInputList.forEach(item=>{
-      item.checked=false;
+  } else {
+    checkInputList.forEach(item => {
+      item.checked = false;
     })
   }
 }
-//개별 모두 되면 선
+
