@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>selector</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
+</head>
+
+<body>
+  <div>
+    <h1 class="blue">제이쿼리</h1>
+    <h2 id="title">선택자</h2>
+    <h3 class="blue">직접선택자</h3>
+    <h4>그룹선택자</h4>
+  </div>
+
+  <script>
+    //id
+    let tag = $('#title');
+    console.log(tag);
+    //tag
+    tag = $('h3')
+    console.log(tag);
+    //class
+    tag = $('.blue')
+    console.log(tag);
+    //선택자
+    tag = $('h4')
+    console.log(tag);
+
+  </script>
+</body>
+
+</html>

@@ -27,17 +27,25 @@ function init() {
 const feild = ['employee_id', 'first_name', 'job_id']
 
 function getEmpList() {
+
   fetch('http://192.168.0.51:8081/myserver/empSelect')
     .then(response => response.json())
     .then(data => {
       let tbody = document.getElementById('empList');
+      tbody.replaceChildren();
       for (let emp of data) {
+        let max = 0;
         let obj = {}
         for (let f of feild) {
           obj[f] = emp[f];
         }
         let tr = makeTr(obj);
         tbody.append(tr);
+        if (max < emp['employee_id']) {
+          max = (emp['employee_id'] * 1) + 1;
+        }
+        document.querySelector('input[name="employee_id"]').value = max
+
 
       }
     })
@@ -91,7 +99,8 @@ function makeTr(obj) {
 
   tr.append(td);
   tr.addEventListener('click', function (e) {
-    if (e.target.tagName == 'BUTTON') return;
+    if (e.target.tagName == 'BUTTON'
+        || e.target.type == 'checkbox') return;
     updateInfo(this);
   })
   return tr;
@@ -118,9 +127,13 @@ function empDelete(button) {
     })
     .then(response => response.json())
     .then(result => {
-      if (result['employee_id'] > 0) {
-        row.remove();
-      }
+      let empId = result['employee_id'];
+      let empTag = document.querySelectorAll('tbody tr>td:nth-child(2)')
+      empTag.forEach(tag => {
+        if (tag.textContent == data['employee_id']) {
+          tag.parentElement.remove();
+        }
+      })
     })
     .catch(err => console.log(err))
 }
@@ -136,6 +149,7 @@ function updateInfo(tr) {
   fetch('http://192.168.0.51:8081/myserver/empFind?employee_id=' + employeeId)
     .then(response => response.json())
     .then(data => {
+      console.log(data);
       printData(data);
     })
     .catch(err => console.log(err))
@@ -148,9 +162,9 @@ function printData(emp) {
 
   inputList.forEach(input => {
     let name = input.name;
-    let objVal =  emp[name]
+    let objVal = emp[name]
     if (name == 'hire_date') {
-      objVal =getHireDate(emp[name]);
+      objVal = getHireDate(emp[name]);
     }
     input.value = objVal;
     if (name == 'job_id') {
@@ -172,53 +186,52 @@ function getHireDate(data) {
 }
 
 
+//form input를 객체 만들기
+function getFormInfo() {
+  let empInfo = {};
+  let inputList = document.querySelectorAll('form input');
+  inputList.forEach(input => {
+    empInfo[input.name] = input.value;
+  })
+
+  return empInfo;
+}
+
 
 // 등록
 function insertEmpInfo(e) {
   event.preventDefault();
-  let inputList = document.querySelectorAll('form input');
-  let obj = {};
-  inputList.forEach(input => {
-    obj[input.getAttribute('name')] = input.value;
-    if (input.value == '') {
-      alert(input.getAttribute('name') + '이 입력 되지 않았습니다');
-      return;
-    }
-  })
+  let empInfo = getFormInfo();
+
+
+
   fetch('http://192.168.0.51:8081/myserver/empInsert', {
       method: 'post',
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify(obj)
+      body: JSON.stringify(empInfo)
     })
     .then(response => response.json())
     .then(data => {
       if (data.employee_id > 0) {
         alert('등록 성공');
-        location.reload();
+        getEmpList();
       }
     })
+
 }
 
 // 수정
 function updateEmpInfo(e) {
-  let inputList = document.querySelectorAll('form input');
-  let obj = {};
-  inputList.forEach(input => {
-    obj[input.getAttribute('name')] = input.value;
-    if (input.value == '') {
-      alert(input.getAttribute('name') + '이 입력 되지 않았습니다');
-      return;
-    }
-  })
+  let empInfo = getFormInfo();
 
   fetch('http://192.168.0.51:8081/myserver/empUpdate', {
       method: 'post',
       headers: {
         'content-type': 'application/json'
       },
-      body: JSON.stringify(obj)
+      body: JSON.stringify(empInfo)
     })
     .then(response => response.json())
     .then(data => {
@@ -232,7 +245,7 @@ function updateEmpInfo(e) {
 
 //선택된 사원 삭제
 function deleteEmpInfo(e) {
-  let checkInputList = document.querySelectorAll('td>input[type="checkbox"]:checked');
+  let checkInputList = document.querySelectorAll('input[type="checkbox"]:checked');
   let delList = [];
   if (checkInputList.length > 0) {
     checkInputList.forEach(item => {
@@ -253,11 +266,10 @@ function deleteEmpInfo(e) {
     })
     .then(response => response.json())
     .then(data => {
-      if (data.success > 0) {
-        alert('삭제건수:' + data.total +
-          '\n성공건수' + data.success);
-        location.reload();
-      }
+      alert('요청건수:' + data.total +
+        '\n삭제한 사번: ' + data.data.toString() +
+        '\n총 삭제건수: ' + data.success);
+      getEmpList();
     })
     .catch(err => console.log(err))
 }
@@ -282,4 +294,3 @@ function isAllChecked(e) {
     })
   }
 }
-
