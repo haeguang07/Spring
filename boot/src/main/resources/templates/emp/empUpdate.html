@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>사원등록</title>
+</head>
+<body>
+
+	<form id="frm" th:object="${empVO}" >
+		<div>
+			<label for="empId">사번</label>
+			<input type="text" id="empId" th:field="*{employeeId}"/>
+		</div>
+		<div>
+			<label for="lastName">이름</label> 
+			<input type="text" id="lastName"  th:field="*{lastName}" />
+		</div>
+		<div>
+			<label for="email">이메일</label> 
+			<input type="text" id="email" th:field="*{email}" />
+		</div>
+		<div>
+			<label for="jobId">직무</label> 
+			<input type="text" id="jobId" th:field="*{jobId}" />
+		</div>
+		<div>
+			<button type="button" id="save">수정</button>
+			<button type="reset">취소</button>
+		</div>
+	</form>
+	<script >
+		$('#save').on('click',function(){
+			event.preventDefault();
+			$.ajax({
+				url: 'employees',
+				method: "PUT",
+				contentType: "application/json",
+				data : JSON.stringify($('#frm').serializeObject()) 
+				//data:$('#frm').serializeObject()
+			})
+			.done(result=>{
+				alert('수정완료')
+			})
+		})
+	</script>
+</body>
+</html>
