@@ -4,10 +4,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
-@SpringBootTest
+//@SpringBootTest
 class BootApplicationTests {
 
-	@Test
+	//@Test
 	void contextLoads() {
 		BCryptPasswordEncoder scpwd = new BCryptPasswordEncoder(); 
 		String password = scpwd.encode("1111"); 

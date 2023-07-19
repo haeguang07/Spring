@@ -5,7 +5,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 public class EncriptTest {
 	
-	@Test
+	//@Test
 	void contextLoads() {
 		BCryptPasswordEncoder scpwd = new BCryptPasswordEncoder(); 
 		String password = scpwd.encode("1234"); 

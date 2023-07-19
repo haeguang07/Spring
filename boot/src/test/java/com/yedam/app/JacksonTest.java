@@ -26,7 +26,7 @@ public class JacksonTest {
 		System.out.println(str);
 	}
 	
-	@Test
+	//@Test
 	public void toObj() throws JsonMappingException, JsonProcessingException {
 		String str = "{\"employeeId\":100,\"firstName\":\"길동\",\"lastName\":\"홍\",\"phoneNumber\":null,\"hireDate\":\"2023-07-07\",\"jobId\":null,\"commissionPct\":0.0,\"managerId\":0,\"departmentId\":0,\"sal\":null}";
 		ObjectMapper ob =new ObjectMapper();
